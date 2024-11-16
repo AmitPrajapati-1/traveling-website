@@ -51,7 +51,7 @@ const AnotherPage = () => {
   console.log(updatedFormData);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:3000/api/bookings', {
+    const response = await fetch('http://localhost:3001/api/bookings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedFormData),

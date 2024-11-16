@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useUser } from './UserContext';  // Import UserContext to access user information
 import axios from 'axios';
-
 const ContactUsForm = () => {
     const { user } = useUser();  // Get the logged-in user (email) from the context
     const [name, setName] = useState('');
@@ -13,6 +12,7 @@ const ContactUsForm = () => {
 
     // Function to handle the form submission
     const handleSubmit = async (e) => {
+        
         e.preventDefault();
         if (!user) {
             alert('You need to be logged in to send an email!');
@@ -24,7 +24,8 @@ const ContactUsForm = () => {
         setSuccess(null);
 
         try {
-            const response = await axios.post('/api/send-email', {
+            const response = await axios.post('http://localhost:3001/api/send-email', {
+                
                 name,
                 email: user.email,  
                 subject,
