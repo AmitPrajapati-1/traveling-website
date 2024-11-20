@@ -51,16 +51,36 @@ const AnotherPage = () => {
   console.log(updatedFormData);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:3001/api/bookings', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedFormData),
-    });
-
-    if (response.ok) {
-      alert('Booking confirmed! You will receive an email shortly.');
-    } else {
-      alert('Error submitting booking. Please try again.');
+    try {
+      // Step 1: Call the /api/bookings endpoint
+      const response = await fetch('http://localhost:3001/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedFormData),
+      });
+  
+      if (response.ok) {
+        alert('Booking confirmed! You will receive an email shortly.');
+  
+        // Step 2: Execute the PHP file
+        const phpResponse = await fetch('http://localhost/myweb/bookings.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updatedFormData), // Send the same data to the PHP file
+        });
+  
+        const phpResult = await phpResponse.json();
+        if (phpResult.success) {
+          console.log('PHP file executed successfully:', phpResult.message);
+        } else {
+          console.error('Error executing PHP file:', phpResult.message);
+        }
+      } else {
+        alert('Error submitting booking. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An unexpected error occurred.');
     }
   };
 

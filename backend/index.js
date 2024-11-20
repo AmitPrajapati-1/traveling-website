@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL,       
     pass: process.env.EMAIL_PASS,      
   },
-  debug: true,
+  debug: true,  
 });
 
 app.post('/api/send-email', async (req, res) => {

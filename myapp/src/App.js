@@ -12,8 +12,9 @@ import Bookings from './bookinghistory';
 import ContactUsForm from './ContactUs';
 import Blog from './blog';
 import BlogDetails from './blogdetails';
+import DisplayData from './viewbooking';
 const Home = () => {
-    const { user } = useUser(); // Access user context properly here
+    const { user } = useUser(); 
 
     return (
         <>
@@ -92,6 +93,7 @@ const App = () => {
                             <Route path="/contact-us" element={<ContactUsForm  />} />
                             <Route path="/blog" element={<Blog />} />
                             <Route path="/blogdetails/:id" element={<BlogDetails />} />
+                            <Route path="/viewbooking" element={<DisplayData />} />
                         </Routes>
                     </main>
                     <footer className="bg-gray-800 text-white p-4">
@@ -118,10 +120,8 @@ const App = () => {
         </Router>
     );
 };
-
-// Bookings button component
 const BookingsButton = () => {
-    const navigate = useNavigate();  // Now this is inside the component
+    const navigate = useNavigate();  
     const goToBookingsPage = () => {
         navigate('/mybookings');
     };
